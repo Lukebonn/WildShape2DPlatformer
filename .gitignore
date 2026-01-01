@@ -1,0 +1,49 @@
+# Unity generated
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+
+# MemoryCaptures can get very large
+[Mm]emoryCaptures/
+
+# Asset meta data should only be ignored when the corresponding asset is also ignored
+!/[Aa]ssets/**/*.meta
+
+# Auto-generated VS / Rider
+.vs/
+.vscode/
+.idea/
+.vsconfig
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+obj/
+
+# Unity3D generated meta files
+*.pidb.meta
+*.pdb.meta
+
+# Build artifacts
+*.apk
+*.aab
+*.app
+*.exe
+*.unitypackage
+
+# Crash reports
+sysinfo.txt
+
+# OS junk
+.DS_Store
+Thumbs.db
