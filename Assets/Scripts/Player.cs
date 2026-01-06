@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMovement : MonoBehaviour
+public class Player : MonoBehaviour
 {
 
     public float moveSpeed = 5f;
@@ -11,30 +11,18 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundLayer;
 
     private bool isGrounded;
-    private float moveInput = 0f;
-    private bool jumpPressed = false;
     private Rigidbody2D rb;
 
+    private Animator animator;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+
     }
 
     void Update()
     {
-        //moveInput = 0f;
-
-        //if (Keyboard.current != null)
-        //{
-        //    if (Keyboard.current.aKey.isPressed || Keyboard.current.leftArrowKey.isPressed)
-        //    {
-        //        moveInput = -1f;
-        //    }
-        //    if (Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed)
-        //    {
-        //        moveInput = 1f;
-        //    }
-        //}
         float moveInput = Input.GetAxis("Horizontal");
         rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
 
@@ -42,6 +30,12 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         }
+
+        animator.SetFloat("Speed", Mathf.Abs(moveInput));
+        animator.SetBool("IsGrounded", isGrounded);
+        animator.SetFloat("YVelocity", rb.linearVelocityY);
+
+        SetAnimation(moveInput);
     }
 
     private void FixedUpdate()
@@ -50,5 +44,35 @@ public class PlayerMovement : MonoBehaviour
         //NOTE: Transform groundCheck is placed basically at the player's feet as a child of "player"
         //this works be creating a circle that will check in a $groundCheckRadius (0.2f) whether or not at groundLayer
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+    }
+
+    private void SetAnimation(float moveInput)
+    {
+        if (isGrounded)
+        {
+            if (moveInput == 0)
+            {
+                animator.Play("Player_Idle");
+                Debug.Log("Idle animation");
+            }
+            else
+            {
+                animator.Play("Player_Run");
+                Debug.Log("run animation");
+            }
+        }
+        else
+        {
+            if (rb.linearVelocityY > 0)
+            {
+                animator.Play("Player_Jump_Up");
+                Debug.Log("jumpup animation");
+            }
+            else
+            {
+                animator.Play("Player_Jump_Fall");
+                Debug.Log("jumpfall animation");
+            }
+        }
     }
 }
