@@ -1,24 +1,36 @@
+using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using System.Collections;
+
 
 public class Player : MonoBehaviour
 {
-
+    public int health = 100;
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
     public Transform groundCheck;
     public float groundCheckRadius = 0.2f;
     public LayerMask groundLayer;
 
+    public int extraJumpsValue = 0;
+    private int extraJumps;
+
+
     private bool isGrounded;
     private Rigidbody2D rb;
+    private SpriteRenderer sr;
 
     private Animator animator;
     void Start()
     {
+        sr = GetComponent<SpriteRenderer>();
+        if (sr == null) throw new Exception("no SpriteRenderer component found");
         rb = GetComponent<Rigidbody2D>();
+        if (rb == null) throw new Exception("no rigidbody2D component found");
         animator = GetComponent<Animator>();
+        if (animator == null) throw new Exception("no Animator component found");
 
+        extraJumps = extraJumpsValue;
     }
 
     void Update()
@@ -26,16 +38,37 @@ public class Player : MonoBehaviour
         float moveInput = Input.GetAxis("Horizontal");
         rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
 
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            if (isGrounded)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            }
+            else if (extraJumps > 0)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+                extraJumps--;
+                animator.SetTrigger("doubleJump");
+            }
+        }
+        if (isGrounded)
+        {
+            extraJumps = extraJumpsValue;
         }
 
         animator.SetFloat("Speed", Mathf.Abs(moveInput));
-        animator.SetBool("IsGrounded", isGrounded);
+        animator.SetBool("isGrounded", isGrounded);
         animator.SetFloat("YVelocity", rb.linearVelocityY);
+        // flipping which side the run animation faces
+        if (moveInput > 0)
+        {
+            sr.flipX = false; // facing right
+        }
+        else if (moveInput < 0)
+        {
+            sr.flipX = true;  // facing left
+        }
 
-        SetAnimation(moveInput);
     }
 
     private void FixedUpdate()
@@ -46,33 +79,29 @@ public class Player : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
     }
 
-    private void SetAnimation(float moveInput)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (isGrounded)
+        if (collision.gameObject.tag == "Damage")
         {
-            if (moveInput == 0)
+            health -= 25;
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            StartCoroutine(BlinkRed());
+
+            if (health <= 0)
             {
-                animator.Play("Player_Idle");
-                Debug.Log("Idle animation");
-            }
-            else
-            {
-                animator.Play("Player_Run");
-                Debug.Log("run animation");
+                Die();
             }
         }
-        else
-        {
-            if (rb.linearVelocityY > 0)
-            {
-                animator.Play("Player_Jump_Up");
-                Debug.Log("jumpup animation");
-            }
-            else
-            {
-                animator.Play("Player_Jump_Fall");
-                Debug.Log("jumpfall animation");
-            }
-        }
+    }
+    private IEnumerator BlinkRed()
+    {
+        sr.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        sr.color = Color.white;
+    }
+
+    private void Die()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Level 1");
     }
 }
