@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 using System.Collections;
-
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
     public Transform groundCheck;
     public float groundCheckRadius = 0.2f;
     public LayerMask groundLayer;
+    public Image healthImage;
+    public int coins;
 
     public int extraJumpsValue = 0;
     private int extraJumps;
@@ -69,6 +71,7 @@ public class Player : MonoBehaviour
             sr.flipX = true;  // facing left
         }
 
+        healthImage.fillAmount = health / 100f;
     }
 
     private void FixedUpdate()
@@ -102,6 +105,6 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Level 1");
+        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
 }
