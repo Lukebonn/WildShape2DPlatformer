@@ -3,23 +3,31 @@ using UnityEngine;
 public class PauseMenu : MonoBehaviour
 {
     public GameObject container;
-    void Update()
+    private GameStateMachine gameStateMachine;
+
+    public void Initialize(GameStateMachine gsm)
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            container.SetActive(true);
-            Time.timeScale = 0;
-        }
+        gameStateMachine = gsm;
     }
 
     public void ResumeBtn()
     {
-        container.SetActive(false);
-        Time.timeScale = 1;
+        Show();
+        gameStateMachine.CurrentState.Exit();
+        gameStateMachine.ChangeState(new PlayingState(gameStateMachine));
     }
 
     public void MainMenuBtn()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("Main Menu");
+    }
+
+    public void Show()
+    {
+        container.SetActive(true);
+    }
+    public void Hide()
+    {
+        container.SetActive(false);
     }
 }
