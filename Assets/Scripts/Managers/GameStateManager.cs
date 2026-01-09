@@ -22,7 +22,6 @@ public class GameStateManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && !(gameStateMachine.CurrentState is PausedState)) 
         {
             gameStateMachine.ChangeState(new PausedState(gameStateMachine, pauseMenu));
-            Debug.Log("trigger paused state");
         }
     }
 }

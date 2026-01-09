@@ -15,7 +15,6 @@ public class PausedState : IState
     {
         Time.timeScale = 0;
         pauseMenu.Show();
-        Debug.Log("enter paused state");
     }
 
     public void Update()

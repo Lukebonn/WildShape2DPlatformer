@@ -19,7 +19,7 @@ public class PauseMenu : MonoBehaviour
 
     public void MainMenuBtn()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Main Menu");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
 
     public void Show()
