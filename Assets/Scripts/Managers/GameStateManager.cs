@@ -7,6 +7,7 @@ public class GameStateManager : MonoBehaviour
 {
     private GameStateMachine gameStateMachine;
     [SerializeField] private PauseMenu pauseMenu;
+    [SerializeField] private MorphAnimationSwitcher maSwitcher;
 
     private void Awake()
     {

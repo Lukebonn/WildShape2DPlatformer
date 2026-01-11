@@ -9,8 +9,6 @@ public class PlayingState : IState
 
     public MorphState morphState = MorphState.Nymph;
     public static event Action<MorphState> OnMorphStateChanged;
-    private MorphAnimationSwitcher maSwitcher;
-
     public PlayingState(GameStateMachine gsm)
     {
         gameStateMachine = gsm;
@@ -18,7 +16,7 @@ public class PlayingState : IState
 
     public void Enter()
     {
-
+        OnMorphStateChanged?.Invoke(morphState);
     }
 
     public void Update()
@@ -101,7 +99,7 @@ public class PlayingState : IState
     private void HandleFlyingSquirrel()
     {
         Debug.Log("WildShaped into Flying Squirrel");
-        maSwitcher.SwitchToSquirrel();
+        MorphAnimationSwitcher.Instance?.SwitchToSquirrel();
         //leave comment for event triggered UI in SquuirrelUI.cs
 
     }
@@ -109,7 +107,7 @@ public class PlayingState : IState
     private void HandleNymphState()
     {
         Debug.Log("WildShaped into Nymph");
-        maSwitcher.SwitchToNymph();
+        MorphAnimationSwitcher.Instance?.SwitchToNymph();
         //leave comment for event triggered UI in NymphUI.cs
     }
 }
