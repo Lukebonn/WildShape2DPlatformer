@@ -23,9 +23,9 @@ public class AcornBulletScript : MonoBehaviour
 
     void Update()
     {
-        //after 10 seconds will destroy the bullet
+        //after 4 seconds will destroy the bullet
         timer += Time.deltaTime;
-        if (timer > 10)
+        if (timer > 4)
         {
             Destroy(gameObject);
         }
