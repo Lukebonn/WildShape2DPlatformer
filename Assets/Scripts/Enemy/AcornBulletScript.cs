@@ -6,6 +6,7 @@ public class AcornBulletScript : MonoBehaviour
     private Rigidbody2D rb;
     public float force;
     private float timer;
+    private bool hasLineOfSight;
 
     void Start()
     {
@@ -25,6 +26,7 @@ public class AcornBulletScript : MonoBehaviour
     {
         //after 10 seconds will destroy the bullet
         timer += Time.deltaTime;
+        Debug.Log("timer: " + timer);
         if (timer > 10)
         {
             Destroy(gameObject);
@@ -32,7 +34,7 @@ public class AcornBulletScript : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Ground"))
         {
             Destroy(gameObject);
         }

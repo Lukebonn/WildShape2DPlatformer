@@ -25,6 +25,6 @@ public class Robot5 : MonoBehaviour
 
         transform.position = Vector2.MoveTowards(transform.position, points[i].position, speed * Time.deltaTime);
 
-        sr.flipX = (transform.position.x - points[i].position.x) < 0f;
+        sr.flipX = (transform.position.x - points[i].position.x) > 0f;
     }
 }
