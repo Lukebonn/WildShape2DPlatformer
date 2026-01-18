@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Robot5 : MonoBehaviour
 {
-    public float speed = 2f;
+    public float speed;
     public Transform[] points;
 
     private int i;
@@ -10,6 +10,7 @@ public class Robot5 : MonoBehaviour
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
+        if (speed == 0) speed = 2f;
     }
 
     void Update()

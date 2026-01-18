@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 5261365207930813343}
   - component: {fileID: 3915207583699037143}
   - component: {fileID: 3015210798374843609}
-  - component: {fileID: 7648994127281710177}
   - component: {fileID: 2120506254078577020}
+  - component: {fileID: 2784462354814203124}
   m_Layer: 0
   m_Name: Coin (gold)
   m_TagString: Untagged
@@ -115,18 +115,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7648994127281710177
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5095131711711269129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cae04cc13370182418c540d2dd761e57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Coin
 --- !u!61 &2120506254078577020
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -173,3 +161,15 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
+--- !u!114 &2784462354814203124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5095131711711269129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4bda97b8ab11934687caae7c04ea6b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Coin

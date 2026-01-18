@@ -11,12 +11,16 @@ public class ChaseEnemyScript : MonoBehaviour
 
     private int i;
     private SpriteRenderer sr;
+    private Rigidbody2D rb;
+    private Player playerScript;
 
     private bool hasLineOfSight = false;
     private void Start()
     {
         sr = GetComponent<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player");
+        playerScript = player.GetComponent<Player>();
     }
 
     private void Update()
@@ -27,9 +31,9 @@ public class ChaseEnemyScript : MonoBehaviour
             StartCoroutine(BlinkRed());
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
         }
+        //will move between two points
         else
         {
-            //will move between two points
             if (Vector2.Distance(transform.position, points[i].position) < 0.25f)
             {
                 i++;
@@ -64,6 +68,11 @@ public class ChaseEnemyScript : MonoBehaviour
             }
         }
 
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        playerScript.TakeDamage();
     }
     private IEnumerator BlinkRed()
     {

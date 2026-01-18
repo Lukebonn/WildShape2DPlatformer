@@ -4,14 +4,17 @@ public class AcornBulletScript : MonoBehaviour
 {
     private GameObject player;
     private Rigidbody2D rb;
-    public float force;
+    [Header("Speed of the Bullet")]
+    [SerializeField, Tooltip("Speed of the Bullet")] public float force; //speed of bullet
     private float timer;
-    private bool hasLineOfSight;
+    private Player playerScript;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player");
+        playerScript = player.GetComponent<Player>();
+        if (force == 0) force = 3f;
 
         //flies towards player's location at time of fire
         Vector3 direction = player.transform.position - transform.position;
@@ -26,7 +29,6 @@ public class AcornBulletScript : MonoBehaviour
     {
         //after 10 seconds will destroy the bullet
         timer += Time.deltaTime;
-        Debug.Log("timer: " + timer);
         if (timer > 10)
         {
             Destroy(gameObject);
@@ -34,8 +36,10 @@ public class AcornBulletScript : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Ground"))
+        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Damage"))
         {
+            if (other.gameObject.CompareTag("Player"))
+                playerScript.TakeDamage(); //calls the player to take damage before destroyed
             Destroy(gameObject);
         }
     }

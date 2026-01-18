@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class SlimeEnemy : MonoBehaviour
 {
     public float speed = 2f;
     public Transform[] points;

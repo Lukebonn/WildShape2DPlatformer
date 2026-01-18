@@ -5,13 +5,13 @@ public class EnemyShooting : MonoBehaviour
 {
     public GameObject bullet;
     public Transform bulletPos;
-    public int distanceToPlayerToFire = 10;
+    public int distanceToPlayerToFire;
     private GameObject player;
-
     private float timer; //time between bullets
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        if (distanceToPlayerToFire == 0) distanceToPlayerToFire = 10;
     }
 
     void Update()
