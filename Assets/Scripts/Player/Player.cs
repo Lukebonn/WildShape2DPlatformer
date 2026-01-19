@@ -19,7 +19,6 @@ public class Player : MonoBehaviour
     private float moveInput;
     private float direction = 1;
 
-
     private bool isGrounded;
     private Rigidbody2D rb;
     private SpriteRenderer sr;
@@ -59,7 +58,17 @@ public class Player : MonoBehaviour
         {
             extraJumps = extraJumpsValue;
         }
+        if (Input.GetKeyDown(KeyCode.Q)) {
+            animator.SetBool("isPlaying", true);
+            AudioManager.Instance?.PlayerBanjo();
+        }
+        if (Input.GetKeyUp(KeyCode.Q))
+        {
+            animator.SetBool("isPlaying", false);
+            AudioManager.Instance?.PlayerBanjoStop();
+        }
 
+        //set animation triggers that appear in the Player's Animator Controller (need to be assigned on the other side as well)
         animator.SetFloat("Speed", Mathf.Abs(moveInput));
         animator.SetBool("isGrounded", isGrounded);
         animator.SetFloat("YVelocity", rb.linearVelocityY);
