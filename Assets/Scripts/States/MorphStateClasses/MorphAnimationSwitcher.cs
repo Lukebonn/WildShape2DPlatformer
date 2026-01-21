@@ -45,7 +45,7 @@ public class MorphAnimationSwitcher : MonoBehaviour
         if (player)
         {
             animator = player.GetComponent<Animator>();
-            Debug.Log("Animator not found on Player in scene: " + scene.name);
+            if (!animator) Debug.Log("Animator not found on Player in scene: " + scene.name);
         }
         else
         {

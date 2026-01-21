@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Robot5 : MonoBehaviour
 {
-    public float speed = 2f;
+    public float speed;
     public Transform[] points;
 
     private int i;
@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
+        if (speed == 0) speed = 2f;
     }
 
     void Update()
@@ -25,6 +26,6 @@ public class Enemy : MonoBehaviour
 
         transform.position = Vector2.MoveTowards(transform.position, points[i].position, speed * Time.deltaTime);
 
-        sr.flipX = (transform.position.x - points[i].position.x) < 0f;
+        sr.flipX = (transform.position.x - points[i].position.x) > 0f;
     }
 }

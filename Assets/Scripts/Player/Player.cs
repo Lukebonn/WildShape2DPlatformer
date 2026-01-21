@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
 
     public int extraJumpsValue = 0;
     private int extraJumps;
+    private float moveInput;
+    private float direction = 1;
 
 
     private bool isGrounded;
@@ -37,7 +39,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        float moveInput = Input.GetAxis("Horizontal");
+        moveInput = Input.GetAxis("Horizontal");
         rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -65,13 +67,16 @@ public class Player : MonoBehaviour
         if (moveInput > 0)
         {
             sr.flipX = false; // facing right
+            direction = 1;
         }
         else if (moveInput < 0)
         {
             sr.flipX = true;  // facing left
+            direction = -1;
         }
 
         healthImage.fillAmount = health / 100f;
+        if (direction == 0) Debug.Log("direction = 0");
     }
 
     private void FixedUpdate()
@@ -86,14 +91,7 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.tag == "Damage")
         {
-            health -= 25;
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-            StartCoroutine(BlinkRed());
-
-            if (health <= 0)
-            {
-                Die();
-            }
+            TakeDamage();
         }
     }
     private IEnumerator BlinkRed()
@@ -106,5 +104,24 @@ public class Player : MonoBehaviour
     private void Die()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+    }
+    public void TakeDamage() //can now be called by other scripts (enemy scripts mostly)
+    {
+        health -= 25;
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+        StartCoroutine(BlinkRed());
+
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+    public bool CanAttack()
+    {
+        return moveInput == 0 && isGrounded;
+    }
+    public float Direction()
+    {
+        return direction;
     }
 }
