@@ -5,3 +5,4 @@ Pack #3: SunnyLand Woods -- https://ansimuz.itch.io/sunnyland-woods
 Pack #4: Tech Dungeon Roguelite -- https://trevor-pupkin.itch.io/tech-dungeon-roguelite
 Pack #5: Free Drones Asset Pack -- https://free-game-assets.itch.io/free-drones-pack-pixel-art
 Pack #6: Nature Landscapes Free Pixel Art -- https://free-game-assets.itch.io/nature-landscapes-free-pixel-art
+Pack #8: SunnyLand Tall Forest Environment -- https://ansimuz.itch.io/sunnyland-tall-forest
