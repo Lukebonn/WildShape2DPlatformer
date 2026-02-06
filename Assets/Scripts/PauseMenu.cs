@@ -4,6 +4,7 @@ public class PauseMenu : MonoBehaviour
 {
     public GameObject container;
     private GameStateMachine gameStateMachine;
+    public bool active = false;
 
     public void Initialize(GameStateMachine gsm)
     {

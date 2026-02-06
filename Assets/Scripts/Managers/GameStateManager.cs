@@ -24,5 +24,13 @@ public class GameStateManager : MonoBehaviour
         {
             gameStateMachine.ChangeState(new PausedState(gameStateMachine, pauseMenu));
         }
+        if (Input.GetKeyDown(KeyCode.Escape) &&  gameStateMachine.CurrentState is PausedState)
+        {
+            Application.Quit();
+
+            #if UNITY_EDITOR
+                        UnityEditor.EditorApplication.isPlaying = false;
+            #endif
+        }
     }
 }

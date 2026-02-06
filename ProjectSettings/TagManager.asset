@@ -14,11 +14,11 @@ TagManager:
   - Water
   - UI
   - Ground
-  - 
-  - 
-  - 
-  - 
-  - 
+  - 1Background
+  - 2Background
+  - 3Background
+  - 4Background
+  - Wall
   - 
   - 
   - 
@@ -40,8 +40,23 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: 1Background
+    uniqueID: 295361049
+    locked: 0
+  - name: 2Background
+    uniqueID: 1671957795
+    locked: 0
+  - name: 3Background
+    uniqueID: 3171549019
+    locked: 0
+  - name: 4Background
+    uniqueID: 207990139
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 820121527
     locked: 0
   - name: UITOP
     uniqueID: 1406022159
